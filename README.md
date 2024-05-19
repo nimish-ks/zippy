@@ -1,6 +1,8 @@
-# zippy - An Open Source CLI for Bionifying eBooks for the Kindle
+# zippy - A CLI for Bionifying eBooks for the Kindle
 
 `zippy` a simple python CLI for 'bionifying' eBooks. Bionification is a technique that bolds the initial letters of words to improve reading speed and comprehension. This tool specifically targets eBooks in the ePub format and is ideal for use with Kindle devices.
+
+![Kindle](/media/kindle.jpeg)
 
 ## Setup Instructions
 
