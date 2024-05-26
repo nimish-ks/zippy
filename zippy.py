@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup, NavigableString
 import argparse
 import os
 
+__version__ = "1.0.0"
 
 def parse_algorithm(algorithm):
     try:
@@ -89,6 +90,7 @@ if __name__ == "__main__":
     parser.add_argument('input', help="Input ePub file path")
     parser.add_argument('output', help="Output ePub file path")
     parser.add_argument('--algorithm', default="- 0 1 1 2 0.4", help="Bionification algorithm")
+    parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {__version__}')
     args = parser.parse_args()
 
     bionify_ebook(args.input, args.output, args.algorithm)
