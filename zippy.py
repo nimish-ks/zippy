@@ -3,8 +3,13 @@ from ebooklib import epub
 from bs4 import BeautifulSoup, NavigableString
 import argparse
 import os
+import warnings
+import logging
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
+
+# Configure logging
+logging.basicConfig(level=logging.ERROR)
 
 def parse_algorithm(algorithm):
     try:
@@ -72,7 +77,10 @@ def bionify_node(node, algorithm, common_words):
 
 
 def bionify_ebook(input_path, output_path, algorithm_str):
-    book = epub.read_epub(input_path)
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', message='This search incorrectly ignores the root element, and will be fixed in a future version')
+        book = epub.read_epub(input_path, options={'ignore_ncx': True})
+    
     common_words = ["the", "be", "to", "of", "and", "a", "an", "it", "at", "on", "he", "she", "but", "is", "my"]
     algorithm = parse_algorithm(algorithm_str)
     
@@ -82,8 +90,10 @@ def bionify_ebook(input_path, output_path, algorithm_str):
             bionify_node(soup.body, algorithm, common_words)
             item.set_content(str(soup))
     
-    epub.write_epub(output_path, book)
-
+    try:
+        epub.write_epub(output_path, book)
+    except Exception as e:
+        logging.error(f"Could not write ePub: {e}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Bionify ePub eBooks.")
