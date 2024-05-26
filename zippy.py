@@ -72,7 +72,7 @@ def bionify_node(node, algorithm, common_words):
 
 
 def bionify_ebook(input_path, output_path, algorithm_str):
-    book = epub.read_epub(input_path)
+    book = epub.read_epub(input_path, options={'ignore_ncx': True})
     common_words = ["the", "be", "to", "of", "and", "a", "an", "it", "at", "on", "he", "she", "but", "is", "my"]
     algorithm = parse_algorithm(algorithm_str)
     
