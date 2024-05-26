@@ -34,7 +34,7 @@ def parse_algorithm(algorithm):
 
 def bionify_word(word, algorithm, common_words):
     def is_common(word):
-        return word in common_words
+        return word.lower() in common_words
 
     index = len(word) - 1
     num_bold = 1
